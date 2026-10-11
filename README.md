@@ -50,8 +50,9 @@ your own machine, `npx wrangler secret put KOOKEE_API_KEY` once, then `npm run d
 ## Configuration
 
 `KOOKEE_API_KEY` is a secret: `.dev.vars` locally, **Settings → Variables and Secrets** on
-Cloudflare. The rest are plain variables in `wrangler.jsonc`, which you can also override in the
-dashboard.
+Cloudflare. `KOOKEE_REVALIDATE_SECONDS` and `KOOKEE_ROADMAP` are plain variables in
+`wrangler.jsonc`, which you can also override in the dashboard. `SITE_URL` is not set at all until
+you add it there, as a plain variable.
 
 | Name | Default | What it does |
 | --- | --- | --- |
