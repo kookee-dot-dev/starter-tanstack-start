@@ -7,8 +7,6 @@
   // Workers Cache in front of the Worker: pages, server functions and feeds are cached for
   // KOOKEE_REVALIDATE_SECONDS, by the headers src/start.ts sets.
   "cache": { "enabled": true },
-  // Optional: add SITE_URL (the site's public address) in the dashboard when the site answers on
-  // more than one address; without it, canonical URLs, the sitemap and feeds use the request's origin.
   "vars": {
     "KOOKEE_REVALIDATE_SECONDS": "21600",
     "KOOKEE_ROADMAP": "true"
