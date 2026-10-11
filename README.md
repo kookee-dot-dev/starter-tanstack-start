@@ -6,6 +6,8 @@ widget. It renders on Cloudflare Workers, and Workers Cache keeps every page and
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kookee-dot-dev/starter-tanstack-start)
 
+**Live demo:** [kookee-site.denpo.workers.dev](https://kookee-site.denpo.workers.dev), with the content of Ledgerly, a made-up invoicing app.
+
 Built with [TanStack Start](https://tanstack.com/start), React 19, the Cloudflare Vite plugin,
 [`@kookee/sdk`](https://www.npmjs.com/package/@kookee/sdk) and
 [`@kookee/react`](https://www.npmjs.com/package/@kookee/react). No Tailwind: one stylesheet,
@@ -46,6 +48,13 @@ Without a key every page shows a short setup guide instead of content.
 To deploy, press **Deploy to Cloudflare** above. It copies the repository to your GitHub account,
 asks for `KOOKEE_API_KEY`, and sets up Workers Builds, which deploys every push to `main`. From
 your own machine, `npx wrangler secret put KOOKEE_API_KEY` once, then `npm run deploy`.
+
+If the Deploy button sends you to GitHub's settings for the Cloudflare app instead of back to the
+form, the app is installed on your GitHub account but not linked to this Cloudflare account. In the
+Cloudflare dashboard, use **Workers & Pages → Create → Import a repository**, paste
+`https://github.com/kookee-dot-dev/starter-tanstack-start` under **Clone a public repository via
+Git URL**, and add `KOOKEE_API_KEY` as a secret (under the Worker's **Settings → Variables and
+Secrets** if the form does not ask for it).
 
 ## Configuration
 
