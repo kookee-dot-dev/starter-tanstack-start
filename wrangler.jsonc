@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kookee-site",
+  "main": "@tanstack/react-start/server-entry",
+  "compatibility_date": "2026-10-10",
+  "compatibility_flags": ["nodejs_compat"],
+  // Workers Cache in front of the Worker: pages, server functions and feeds are cached for
+  // KOOKEE_REVALIDATE_SECONDS, by the headers src/start.ts sets.
+  "cache": { "enabled": true },
+  "vars": {
+    "KOOKEE_REVALIDATE_SECONDS": "21600",
+    "KOOKEE_ROADMAP": "true",
+    // The site's public address for canonical URLs, the sitemap and feeds. Empty: the request's origin.
+    "SITE_URL": ""
+  },
+  "secrets": {
+    "required": ["KOOKEE_API_KEY"]
+  },
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # The weekly run checks the newest @kookee packages, in this repository only, not in copies of the template.
+    if: github.event_name != 'schedule' || github.repository == 'kookee-dot-dev/starter-tanstack-start'
+    runs-on: ubuntu-latest
+    env:
+      # Empty on pull requests from forks: the site then renders the setup page, and every check still runs.
+      KOOKEE_API_KEY: ${{ secrets.KOOKEE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Use the newest @kookee packages
+        if: github.event_name == 'schedule'
+        run: npm install --no-save @kookee/sdk@latest @kookee/react@latest
+      - name: Hand the key to the local Worker
+        run: printf 'KOOKEE_API_KEY=%s\n' "$KOOKEE_API_KEY" > .dev.vars
+      - run: npm run build
+      # The build reads nothing from Kookee, so render a few pages in the local Worker.
+      - name: Smoke test
+        run: |
+          npx vite preview --port 4174 --strictPort &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://localhost:4174/robots.txt && break; sleep 1; done
+          for route in / /blog /changelog /help /roadmap /sitemap.xml /llms.txt /blog/rss.xml /changelog/rss.xml; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:4174$route")
+            echo "$code $route"
+            [ "$code" = 200 ] || exit 1
+          done

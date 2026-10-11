@@ -1,0 +1,328 @@
+/* The site's own tokens. Change them here: the header, footer and setup page read them, and the
+   rule on `.kookee-content` below hands them to every Kookee component. */
+:root {
+  color-scheme: light dark;
+  --site-bg: #ffffff;
+  --site-surface: #ffffff;
+  --site-surface-muted: #f5f6f8;
+  --site-text: #16181d;
+  --site-text-muted: #5d6370;
+  --site-border: #e3e5ea;
+  --site-accent: #4f46e5;
+  --site-accent-text: #4338ca;
+  --site-accent-contrast: #ffffff;
+  --site-font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --site-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --site-width: 72rem;
+  --site-header-height: 4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --site-bg: #0f1115;
+    --site-surface: #161920;
+    --site-surface-muted: #1e222b;
+    --site-text: #eef0f4;
+    --site-text-muted: #a1a8b5;
+    --site-border: #2b303b;
+    --site-accent: #818cf8;
+    --site-accent-text: #a5b4fc;
+    --site-accent-contrast: #0f1115;
+  }
+}
+
+.kookee-content {
+  --kookee-bg: var(--site-surface);
+  --kookee-bg-secondary: var(--site-surface-muted);
+  --kookee-text: var(--site-text);
+  --kookee-text-secondary: var(--site-text-muted);
+  --kookee-text-dim: var(--site-text-muted);
+  --kookee-border: var(--site-border);
+  --kookee-primary: var(--site-accent);
+  --kookee-primary-text: var(--site-accent-text);
+  --kookee-primary-contrast: var(--site-accent-contrast);
+  --kookee-primary-soft: color-mix(in srgb, var(--site-accent) 12%, transparent);
+  --kookee-focus-ring: 0 0 0 3px color-mix(in srgb, var(--site-accent) 22%, transparent);
+  --kookee-font-mono: var(--site-font-mono);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--site-header-height) + 1.5rem);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--site-bg);
+  color: var(--site-text);
+  font-family: var(--site-font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--site-accent-text);
+}
+
+.site-container {
+  width: 100%;
+  max-width: var(--site-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+.site-narrow {
+  max-width: 48rem;
+}
+
+.site-main {
+  flex: 1;
+  padding-block: 2.5rem 4rem;
+}
+
+/* Header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--site-border);
+  background: color-mix(in srgb, var(--site-bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.site-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.25rem;
+  min-height: var(--site-header-height);
+  padding-block: 0.75rem 0.5rem;
+}
+
+.site-header-inner .kookee-whats-new {
+  margin-inline-start: auto;
+}
+
+.site-brand {
+  color: var(--site-text);
+  font-weight: 650;
+  font-size: 1.05rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* On a phone the nav takes a row of its own under the name and the badge. */
+.site-nav {
+  display: flex;
+  order: 1;
+  flex-basis: 100%;
+  gap: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+@media (min-width: 720px) {
+  .site-header-inner {
+    flex-wrap: nowrap;
+    padding-block: 0;
+  }
+
+  .site-nav {
+    order: 0;
+    flex: 1;
+  }
+}
+
+.site-nav a {
+  color: var(--site-text-muted);
+  font-size: 0.925rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav a:hover {
+  color: var(--site-text);
+}
+
+/* Footer */
+
+.site-footer {
+  border-top: 1px solid var(--site-border);
+  color: var(--site-text-muted);
+  font-size: 0.875rem;
+}
+
+.site-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-block: 1.75rem;
+}
+
+.site-footer-inner p {
+  margin: 0;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+/* Page building blocks */
+
+.site-title {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.site-lead {
+  margin: -0.75rem 0 2rem;
+  max-width: 40rem;
+  color: var(--site-text-muted);
+}
+
+.site-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.site-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.site-hero p {
+  margin: 0;
+  color: var(--site-text-muted);
+  font-size: 1.125rem;
+}
+
+.site-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.site-section-heading h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.site-section-heading a {
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.site-pagination {
+  margin-top: 2.5rem;
+}
+
+.site-help-hero {
+  max-width: 40rem;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.site-help-hero .kookee-help-search {
+  text-align: start;
+}
+
+/* Article pages: the entry, and a table of contents beside it on wide screens. */
+
+.site-article-layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.site-article {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.site-aside {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .site-article-layout {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    gap: 4rem;
+  }
+
+  .site-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: calc(var(--site-header-height) + 1.5rem);
+    align-self: start;
+    max-height: calc(100dvh - var(--site-header-height) - 3rem);
+    overflow-y: auto;
+  }
+}
+
+/* Setup and not-found pages */
+
+.site-setup {
+  max-width: 42rem;
+}
+
+.site-setup h1 {
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
+
+.site-setup ol {
+  display: grid;
+  gap: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.site-setup code {
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--site-surface-muted);
+  font-family: var(--site-font-mono);
+  font-size: 0.9em;
+}
+
+.site-empty {
+  max-width: 36rem;
+  padding-block: 3rem;
+  text-align: center;
+}
+
+.site-empty p {
+  color: var(--site-text-muted);
+}
