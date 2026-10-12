@@ -326,3 +326,21 @@ a {
 .site-empty p {
   color: var(--site-text-muted);
 }
+
+/* Status page */
+
+.site-status-headline {
+  margin: 0 0 1.25rem;
+}
+
+.site-back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--site-text-muted);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.site-back:hover {
+  color: inherit;
+}

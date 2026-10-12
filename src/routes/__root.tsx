@@ -70,7 +70,7 @@ function RootLayout() {
 
   return (
     <>
-      <Header project={site.project} changelog={site.changelog} roadmap={site.roadmap} />
+      <Header project={site.project} changelog={site.changelog} roadmap={site.roadmap} status={site.status} />
       <main className="site-main">
         <Outlet />
       </main>

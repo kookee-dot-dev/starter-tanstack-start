@@ -22,8 +22,10 @@ import { Route as ChangelogIndexRouteImport } from './routes/changelog/index'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog/$slug'
 import { Route as ChangelogRssDotxmlRouteImport } from './routes/changelog/rss[.]xml'
 import { Route as HelpIndexRouteImport } from './routes/help/index'
+import { Route as StatusIndexRouteImport } from './routes/status/index'
 import { Route as HelpCategoryIndexRouteImport } from './routes/help/$category/index'
 import { Route as HelpCategorySlugRouteImport } from './routes/help/$category/$slug'
+import { Route as StatusIncidentsIdRouteImport } from './routes/status/incidents/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -90,6 +92,11 @@ const HelpIndexRoute = HelpIndexRouteImport.update({
   path: '/help/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StatusIndexRoute = StatusIndexRouteImport.update({
+  id: '/status/',
+  path: '/status/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HelpCategoryIndexRoute = HelpCategoryIndexRouteImport.update({
   id: '/help/$category/',
   path: '/help/$category/',
@@ -98,6 +105,11 @@ const HelpCategoryIndexRoute = HelpCategoryIndexRouteImport.update({
 const HelpCategorySlugRoute = HelpCategorySlugRouteImport.update({
   id: '/help/$category/$slug',
   path: '/help/$category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusIncidentsIdRoute = StatusIncidentsIdRouteImport.update({
+  id: '/status/incidents/$id',
+  path: '/status/incidents/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -115,7 +127,9 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/changelog/': typeof ChangelogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/status/': typeof StatusIndexRoute
   '/help/$category/$slug': typeof HelpCategorySlugRoute
+  '/status/incidents/$id': typeof StatusIncidentsIdRoute
   '/help/$category/': typeof HelpCategoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -132,7 +146,9 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/changelog': typeof ChangelogIndexRoute
   '/help': typeof HelpIndexRoute
+  '/status': typeof StatusIndexRoute
   '/help/$category/$slug': typeof HelpCategorySlugRoute
+  '/status/incidents/$id': typeof StatusIncidentsIdRoute
   '/help/$category': typeof HelpCategoryIndexRoute
 }
 export interface FileRoutesById {
@@ -150,7 +166,9 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/changelog/': typeof ChangelogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/status/': typeof StatusIndexRoute
   '/help/$category/$slug': typeof HelpCategorySlugRoute
+  '/status/incidents/$id': typeof StatusIncidentsIdRoute
   '/help/$category/': typeof HelpCategoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -169,7 +187,9 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/changelog/'
     | '/help/'
+    | '/status/'
     | '/help/$category/$slug'
+    | '/status/incidents/$id'
     | '/help/$category/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -186,7 +206,9 @@ export interface FileRouteTypes {
     | '/blog'
     | '/changelog'
     | '/help'
+    | '/status'
     | '/help/$category/$slug'
+    | '/status/incidents/$id'
     | '/help/$category'
   id:
     | '__root__'
@@ -203,7 +225,9 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/changelog/'
     | '/help/'
+    | '/status/'
     | '/help/$category/$slug'
+    | '/status/incidents/$id'
     | '/help/$category/'
   fileRoutesById: FileRoutesById
 }
@@ -221,7 +245,9 @@ export interface RootRouteChildren {
   BlogIndexRoute: typeof BlogIndexRoute
   ChangelogIndexRoute: typeof ChangelogIndexRoute
   HelpIndexRoute: typeof HelpIndexRoute
+  StatusIndexRoute: typeof StatusIndexRoute
   HelpCategorySlugRoute: typeof HelpCategorySlugRoute
+  StatusIncidentsIdRoute: typeof StatusIncidentsIdRoute
   HelpCategoryIndexRoute: typeof HelpCategoryIndexRoute
 }
 
@@ -318,6 +344,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HelpIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/status/': {
+      id: '/status/'
+      path: '/status'
+      fullPath: '/status/'
+      preLoaderRoute: typeof StatusIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/help/$category/': {
       id: '/help/$category/'
       path: '/help/$category'
@@ -330,6 +363,13 @@ declare module '@tanstack/react-router' {
       path: '/help/$category/$slug'
       fullPath: '/help/$category/$slug'
       preLoaderRoute: typeof HelpCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/status/incidents/$id': {
+      id: '/status/incidents/$id'
+      path: '/status/incidents/$id'
+      fullPath: '/status/incidents/$id'
+      preLoaderRoute: typeof StatusIncidentsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -349,7 +389,9 @@ const rootRouteChildren: RootRouteChildren = {
   BlogIndexRoute: BlogIndexRoute,
   ChangelogIndexRoute: ChangelogIndexRoute,
   HelpIndexRoute: HelpIndexRoute,
+  StatusIndexRoute: StatusIndexRoute,
   HelpCategorySlugRoute: HelpCategorySlugRoute,
+  StatusIncidentsIdRoute: StatusIncidentsIdRoute,
   HelpCategoryIndexRoute: HelpCategoryIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,8 +1,8 @@
 # Kookee starter for TanStack Start on Cloudflare
 
 A TanStack Start site for the content of a [Kookee](https://kookee.dev) project: a blog, a
-changelog, a help center with search, your pages and a read-only roadmap, plus the Kookee site
-widget. It renders on Cloudflare Workers, and Workers Cache keeps every page and read at the edge.
+changelog, a help center with search, your pages, a read-only roadmap and, when you turn it on,
+your status page, plus the Kookee site widget. It renders on Cloudflare Workers, and Workers Cache keeps every page and read at the edge.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kookee-dot-dev/starter-tanstack-start)
 
@@ -22,6 +22,7 @@ Built with [TanStack Start](https://tanstack.com/start), React 19, the Cloudflar
 | `/changelog`, `/changelog?page=2`, `/changelog/{slug}` | Changelog entries; an entry with reactions |
 | `/help`, `/help/{category}`, `/help/{category}/{slug}` | Help categories and search as you type; a category's articles; an article with its table of contents and the "Was this article helpful?" vote |
 | `/roadmap` | The open feedback posts by column, read-only. `KOOKEE_ROADMAP=false` hides it |
+| `/status`, `/status/incidents/{id}` | Your status page, as Kookee hosts it: incidents, maintenance, and each component's uptime over 90 days; an incident with its updates. Times show in the visitor's zone. Off until you set `KOOKEE_STATUS=true` |
 | `/{slug}` | Your pages, such as `/about` or `/privacy` |
 | `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/blog/rss.xml`, `/changelog/rss.xml` | Files for search engines, AI crawlers and feed readers |
 
@@ -59,7 +60,7 @@ Secrets** if the form does not ask for it).
 ## Configuration
 
 `KOOKEE_API_KEY` is a secret: `.dev.vars` locally, **Settings → Variables and Secrets** on
-Cloudflare. `KOOKEE_REVALIDATE_SECONDS` and `KOOKEE_ROADMAP` are plain variables in
+Cloudflare. `KOOKEE_REVALIDATE_SECONDS`, `KOOKEE_ROADMAP` and `KOOKEE_STATUS` are plain variables in
 `wrangler.jsonc`, which you can also override in the dashboard. `SITE_URL` is not set at all until
 you add it there, as a plain variable.
 
@@ -69,6 +70,7 @@ you add it there, as a plain variable.
 | `SITE_URL` | the address the request came in on | The site's address in canonical URLs, the sitemap, feeds and `llms.txt`. Set it when the site answers on more than one address, such as `*.workers.dev` and your domain |
 | `KOOKEE_REVALIDATE_SECONDS` | `21600` (6 hours) | How long Workers Cache keeps a page |
 | `KOOKEE_ROADMAP` | `true` | `false` hides `/roadmap` and its header link |
+| `KOOKEE_STATUS` | `false` | `true` shows `/status` and a header link. Turn it on once the project has its status page set up |
 
 After you change `wrangler.jsonc`, run `npm run cf-typegen` to update `worker-configuration.d.ts`.
 
@@ -112,6 +114,11 @@ Publishing in Kookee does not clear the cache: a change shows within the window,
 a deploy, since every Worker version starts with an empty cache. Lower `KOOKEE_REVALIDATE_SECONDS`
 for fresher pages at the cost of more API requests.
 
+The status page is the exception: the page is cached like the others, but the status itself is read
+in the browser when it opens and again every minute while its tab is visible, so it is always
+current. Those reads do not count against the monthly quota; they have a rate limit of their own,
+ten times the project's per-minute limit.
+
 Workers Cache works on `*.workers.dev` and on your own domain. With it on, Cloudflare bills
 requests for static assets (scripts, styles, the icon) at the standard Workers request rate.
 
@@ -150,7 +157,8 @@ change a route.
   README](https://www.npmjs.com/package/@kookee/react).
 - **Languages:** the site reads your project's default language only, so every entry has one URL.
 - **Not shown:** help articles without a category (they have no URL here), and a page whose slug
-  is `blog`, `changelog`, `help` or `roadmap`, which those routes would hide.
+  is `blog`, `changelog`, `help`, `roadmap` or `status` (even with the status page off), which those
+  routes would hide.
 
 ## Troubleshooting
 

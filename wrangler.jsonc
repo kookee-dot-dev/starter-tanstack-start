@@ -9,7 +9,8 @@
   "cache": { "enabled": true },
   "vars": {
     "KOOKEE_REVALIDATE_SECONDS": "21600",
-    "KOOKEE_ROADMAP": "true"
+    "KOOKEE_ROADMAP": "true",
+    "KOOKEE_STATUS": "false"
   },
   "secrets": {
     "required": ["KOOKEE_API_KEY"]

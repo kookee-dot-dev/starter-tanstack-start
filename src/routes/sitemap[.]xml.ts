@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { buildSitemap } from '@kookee/sdk';
-import { getKookee, roadmapEnabled, siteUrl } from '../lib/kookee';
+import { getKookee, roadmapEnabled, siteUrl, statusEnabled } from '../lib/kookee';
 import { getPath } from '../lib/paths';
 import { exportDefaultLocale, unavailable } from '../lib/server-routes';
 
@@ -22,6 +22,7 @@ export const Route = createFileRoute('/sitemap.xml')({
               '/changelog',
               '/help',
               ...(roadmapEnabled() ? ['/roadmap'] : []),
+              ...(statusEnabled() ? ['/status'] : []),
               ...categories.map((category) => `/help/${category.slug}`),
             ],
           });

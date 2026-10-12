@@ -8,10 +8,12 @@ export function Header({
   project,
   changelog,
   roadmap,
+  status,
 }: {
   project: PublicProject;
   changelog: ChangelogEntryListItem[];
   roadmap: boolean;
+  status: boolean;
 }) {
   return (
     <header className="site-header">
@@ -24,6 +26,7 @@ export function Header({
           <Link to="/changelog">Changelog</Link>
           <Link to="/help">Help</Link>
           {roadmap && <Link to="/roadmap">Roadmap</Link>}
+          {status && <Link to="/status">Status</Link>}
           {project.portalUrl && <a href={project.portalUrl}>Portal ↗</a>}
         </nav>
         <WhatsNew entries={changelog} href={hrefs.changelogEntry} allHref="/changelog" renderLink={renderLink} />

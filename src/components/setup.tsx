@@ -3,8 +3,8 @@ export function Setup() {
     <div className="site-container site-setup">
       <h1>Connect your Kookee project</h1>
       <p>
-        This site shows a Kookee project&apos;s blog, changelog, help center, pages and roadmap. It needs one API key
-        to read them.
+        This site shows a Kookee project&apos;s blog, changelog, help center, pages and roadmap, and its status page
+        once you turn it on. It needs one API key to read them.
       </p>
       <ol>
         <li>

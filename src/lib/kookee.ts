@@ -36,6 +36,10 @@ export function roadmapEnabled(): boolean {
   return getEnv().KOOKEE_ROADMAP !== 'false';
 }
 
+export function statusEnabled(): boolean {
+  return getEnv().KOOKEE_STATUS === 'true';
+}
+
 async function orNull<T>(read: Promise<T>): Promise<T | null> {
   try {
     return await read;
@@ -51,7 +55,7 @@ const pageInput = (input: { page: number }) => input;
 /** What every page needs: the project, the header's changelog entries, the footer's pages. */
 export const getSite = createServerFn({ method: 'GET' }).handler(async () => {
   const kookee = getKookee();
-  const base = { siteUrl: siteUrl(getRequest()), roadmap: roadmapEnabled() };
+  const base = { siteUrl: siteUrl(getRequest()), roadmap: roadmapEnabled(), status: statusEnabled() };
   if (!kookee) return { ...base, project: null, apiKey: null, changelog: [], pages: [] };
   const [project, changelog, pages] = await Promise.all([
     kookee.project.get(),

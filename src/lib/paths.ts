@@ -1,7 +1,7 @@
 import type { GetPath } from '@kookee/sdk';
 
 /** A Kookee page with one of these slugs would be shadowed by the site's own route. */
-const RESERVED_PAGE_SLUGS = new Set(['blog', 'changelog', 'help', 'roadmap']);
+const RESERVED_PAGE_SLUGS = new Set(['blog', 'changelog', 'help', 'roadmap', 'status']);
 
 /** Where each entry lives on this site, or `null` when it has no page here. */
 export const getPath: GetPath = (entry) => {
