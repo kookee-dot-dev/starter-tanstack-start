@@ -24,13 +24,21 @@ Built with [TanStack Start](https://tanstack.com/start), React 19, the Cloudflar
 | `/roadmap` | The open feedback posts by column, read-only. `KOOKEE_ROADMAP=false` hides it |
 | `/status`, `/status/incidents/{id}` | Your status page, as Kookee hosts it: incidents, maintenance, and each component's uptime over 90 days; an incident with its updates. Times show in the visitor's zone. Off until you set `KOOKEE_STATUS=true` |
 | `/{slug}` | Your pages, such as `/about` or `/privacy` |
+| Every page | Your newest announcement as a pill under the header, which opens all of them in a dialog |
 | `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/blog/rss.xml`, `/changelog/rss.xml` | Files for search engines, AI crawlers and feed readers |
 
 The header carries a "What's new" badge with the latest changelog entries, and a link to your
-hosted portal when the project has it switched on. The site widget appears once you save its
-settings in the Kookee dashboard (**Site widget → Customize**) and the cached pages refresh:
-within `KOOKEE_REVALIDATE_SECONDS`, or right after a deploy. Once it shows, it loads its tabs and
-texts in the browser, so later changes to them show within about a minute.
+hosted portal when the project has it switched on.
+
+The site reads your ten newest announcements. Under the header, a pill shows the newest one the
+visitor has not dismissed, and opens a dialog that lists all they have not dismissed and shows each
+in full. Dismissals, from the pill or the list, are kept in the visitor's browser, so the pill
+appears once the page has loaded and the cached page stays the same for everyone.
+
+The site widget appears once you save its settings in the Kookee dashboard (**Site widget →
+Customize**) and the cached pages refresh: within `KOOKEE_REVALIDATE_SECONDS`, or right after a
+deploy. Once it shows, it loads its tabs and texts in the browser, so later changes to them show
+within about a minute.
 
 Every post, changelog entry, help article and page has its title, description, canonical URL, Open
 Graph tags and schema.org JSON-LD, taken from the entry and its SEO fields; the lists have a title
@@ -127,8 +135,8 @@ requests for static assets (scripts, styles, the icon) at the standard Workers r
 Every request the Worker makes with its key counts against the monthly request quota of the
 project owner's account, shared by all their projects:
 
-- on each cache refresh: the project, the header's changelog entries and the footer's pages, plus
-  what the page shows;
+- on each cache refresh: the project, the header's changelog entries and announcements (one
+  request for the list and one per announcement), the footer's pages, plus what the page shows;
 - in the browser: each help search, the widget's Help tab and article reader, and a reaction or
   helpful vote when clicked.
 

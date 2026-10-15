@@ -1,17 +1,20 @@
 import { Link } from '@tanstack/react-router';
-import type { ChangelogEntryListItem, PublicProject } from '@kookee/sdk';
+import type { AnnouncementDetail, ChangelogEntryListItem, PublicProject } from '@kookee/sdk';
 import { WhatsNew } from '@kookee/react/changelog/client';
 import { hrefs } from '../lib/paths';
+import { Announcements } from './announcements';
 import { renderLink } from './link';
 
 export function Header({
   project,
   changelog,
+  announcements,
   roadmap,
   status,
 }: {
   project: PublicProject;
   changelog: ChangelogEntryListItem[];
+  announcements: AnnouncementDetail[];
   roadmap: boolean;
   status: boolean;
 }) {
@@ -31,6 +34,7 @@ export function Header({
         </nav>
         <WhatsNew entries={changelog} href={hrefs.changelogEntry} allHref="/changelog" renderLink={renderLink} />
       </div>
+      {announcements.length > 0 && <Announcements announcements={announcements} />}
     </header>
   );
 }

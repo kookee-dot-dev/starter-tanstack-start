@@ -7,11 +7,14 @@ import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { Setup } from '../components/setup';
 import { SiteWidget } from '../components/site-widget';
-import { getSite } from '../lib/kookee';
+import { getAnnouncements, getSite } from '../lib/kookee';
 import siteCss from '../styles/site.css?url';
 
 export const Route = createRootRoute({
-  loader: () => getSite(),
+  loader: async () => {
+    const [site, announcements] = await Promise.all([getSite(), getAnnouncements()]);
+    return { ...site, announcements };
+  },
   // The project, header and footer are read once per visit, not on every navigation.
   shouldReload: false,
   head: ({ loaderData }) => {
@@ -70,7 +73,13 @@ function RootLayout() {
 
   return (
     <>
-      <Header project={site.project} changelog={site.changelog} roadmap={site.roadmap} status={site.status} />
+      <Header
+        project={site.project}
+        changelog={site.changelog}
+        announcements={site.announcements}
+        roadmap={site.roadmap}
+        status={site.status}
+      />
       <main className="site-main">
         <Outlet />
       </main>

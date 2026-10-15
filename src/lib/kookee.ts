@@ -66,6 +66,15 @@ export const getSite = createServerFn({ method: 'GET' }).handler(async () => {
   return { ...base, project, apiKey: getEnv().KOOKEE_API_KEY, changelog: changelog.data, pages: pages.data };
 });
 
+/** The header's announcements, newest first, each with its body, so the dialog opens one without a request. */
+export const getAnnouncements = createServerFn({ method: 'GET' }).handler(async () => {
+  const kookee = getKookee();
+  if (!kookee) return [];
+  const list = await kookee.announcements.list({ limit: 10 });
+  const details = await Promise.all(list.data.map((item) => orNull(kookee.announcements.getById(item.id))));
+  return details.filter((detail) => detail !== null);
+});
+
 export const listBlogPosts = createServerFn({ method: 'GET' })
   .validator(pageInput)
   .handler(async ({ data }) => (await getKookee()?.blog.list({ page: data.page, limit: PAGE_SIZE })) ?? null);

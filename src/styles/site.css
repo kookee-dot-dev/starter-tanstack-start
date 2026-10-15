@@ -159,6 +159,97 @@ a {
   color: var(--site-text);
 }
 
+/* Announcements: the pill hangs under the sticky header, at any header height, and lets clicks
+   beside it through to the page. */
+
+.site-announcement {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem 0;
+  pointer-events: none;
+}
+
+.site-announcement .kookee-announcement-pill {
+  pointer-events: auto;
+}
+
+/* The panels fill the dialog edge to edge, so a click on the dialog itself is on the backdrop. */
+.site-dialog {
+  width: 32rem;
+  max-width: calc(100% - 2rem);
+  max-height: min(40rem, calc(100% - 4rem));
+  padding: 0;
+  border: 1px solid var(--site-border);
+  border-radius: 12px;
+  background: var(--site-surface);
+  color: var(--site-text);
+  box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.3);
+}
+
+.site-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+.site-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.site-dialog-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.site-dialog-close {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--site-text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.site-dialog-close:hover {
+  background: var(--site-surface-muted);
+  color: var(--site-text);
+}
+
+.site-dialog-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem 0.5rem 1rem;
+}
+
+.site-dialog-body .site-back {
+  margin: 0.5rem 0.75rem 1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.site-dialog-body .kookee-announcement-article {
+  padding-inline: 0.75rem;
+}
+
 /* Footer */
 
 .site-footer {
