@@ -18,6 +18,7 @@ Built with [TanStack Start](https://tanstack.com/start), React 19, the Cloudflar
 | Path | What it shows |
 | --- | --- |
 | `/` | The newest posts and changelog entries, and the help categories |
+| `/`, below the help categories | Your FAQ: the FAQ items in the category `home`, in the order you set, with FAQPage JSON-LD. Hidden while the category has no items |
 | `/blog`, `/blog?page=2`, `/blog/{slug}` | Blog posts, 12 per page; a post with its table of contents and reactions |
 | `/changelog`, `/changelog?page=2`, `/changelog/{slug}` | Changelog entries; an entry with reactions |
 | `/help`, `/help/{category}`, `/help/{category}/{slug}` | Help categories and search as you type; a category's articles; an article with its table of contents and the "Was this article helpful?" vote |

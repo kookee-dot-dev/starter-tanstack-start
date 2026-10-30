@@ -123,6 +123,15 @@ export const listHelpArticles = createServerFn({ method: 'GET' })
     return (await kookee.help.list({ category: data.category, limit: 100 })).data;
   });
 
+/** The FAQ items of a category, in the order the team set, each with its answer. */
+export const listFaq = createServerFn({ method: 'GET' })
+  .validator((input: { category: string }) => input)
+  .handler(async ({ data }) => {
+    const kookee = getKookee();
+    if (!kookee || !SLUG_PATTERN.test(data.category)) return [];
+    return (await kookee.faq.list({ category: data.category, limit: 50 })).data;
+  });
+
 export const getRoadmap = createServerFn({ method: 'GET' }).handler(async () => {
   const kookee = getKookee();
   if (!kookee) return null;
