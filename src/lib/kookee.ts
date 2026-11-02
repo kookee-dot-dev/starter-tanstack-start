@@ -62,7 +62,7 @@ export const getSite = createServerFn({ method: 'GET' }).handler(async () => {
     kookee.changelog.list({ limit: PAGE_SIZE }),
     kookee.entries.list({ type: 'page', limit: 20 }),
   ]);
-  // Public by design: reactions, the helpful vote, help search and the widget send it from the browser.
+  // Public by design: reactions, the helpful vote, roadmap votes, help search and the widget send it from the browser.
   return { ...base, project, apiKey: getEnv().KOOKEE_API_KEY, changelog: changelog.data, pages: pages.data };
 });
 

@@ -1,7 +1,7 @@
 # Kookee starter for TanStack Start on Cloudflare
 
 A TanStack Start site for the content of a [Kookee](https://kookee.dev) project: a blog, a
-changelog, a help center with search, your pages, a read-only roadmap and, when you turn it on,
+changelog, a help center with search, your pages, a roadmap visitors can vote on and, when you turn it on,
 your status page, plus the Kookee site widget. It renders on Cloudflare Workers, and Workers Cache keeps every page and read at the edge.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kookee-dot-dev/starter-tanstack-start)
@@ -22,7 +22,7 @@ Built with [TanStack Start](https://tanstack.com/start), React 19, the Cloudflar
 | `/blog`, `/blog?page=2`, `/blog/{slug}` | Blog posts, 12 per page; a post with its table of contents and reactions |
 | `/changelog`, `/changelog?page=2`, `/changelog/{slug}` | Changelog entries; an entry with reactions |
 | `/help`, `/help/{category}`, `/help/{category}/{slug}` | Help categories and search as you type; a category's articles; an article with its table of contents and the "Was this article helpful?" vote |
-| `/roadmap` | The open feedback posts by column, read-only. `KOOKEE_ROADMAP=false` hides it |
+| `/roadmap` | The open feedback posts by column, with a vote button that needs no sign-in. `KOOKEE_ROADMAP=false` hides it |
 | `/status`, `/status/incidents/{id}` | Your status page, as Kookee hosts it: incidents, maintenance, and each component's uptime over 90 days; an incident with its updates. Times show in the visitor's zone. Off until you set `KOOKEE_STATUS=true` |
 | `/{slug}` | Your pages, such as `/about` or `/privacy` |
 | Every page | Your newest announcement as a pill under the header, which opens all of them in a dialog |
@@ -86,7 +86,7 @@ After you change `wrangler.jsonc`, run `npm run cf-typegen` to update `worker-co
 ## Allowed origins
 
 The key is read on the Worker, and it is also sent to the browser for the parts that run there:
-reactions, the helpful vote, help search and the site widget. In Kookee, open **Settings →
+reactions, the helpful vote, roadmap votes, help search and the site widget. In Kookee, open **Settings →
 Project** and add your production domain, your `*.workers.dev` address if you use it, and
 `http://localhost` to the **Allowed Origins** card; `http://localhost` covers every port, and an
 origin with a port is not accepted. Once the list holds an address, browsers on other sites are
@@ -98,7 +98,7 @@ are not affected. Only owners and admins can change the list.
 ## What the key can do
 
 Anyone can copy the key from your pages. With it they can read your published content, add
-reactions and helpful votes, search the help center, ask the AI assistant and send feedback
+reactions, helpful votes and roadmap votes, search the help center, ask the AI assistant and send feedback
 through the widget. It cannot read drafts or change content.
 
 Allowed origins stop other sites' browsers, not scripts, which send no `Origin` header. If the key
